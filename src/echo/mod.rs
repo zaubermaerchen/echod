@@ -4,25 +4,25 @@ use std::io;
 mod session;
 
 pub struct Service {
-    address: String
+	address: String
 }
 
 impl Service {
-    pub fn new(port: u32) -> Service {
-    	Service {
-            address: format!("0.0.0.0:{}", port)
-        }
-    }
+	pub fn new(port: u32) -> Service {
+		Service {
+			address: format!("0.0.0.0:{}", port)
+		}
+	}
 
-    pub fn start(&self) -> io::Result<()> {
+	pub fn start(&self) -> io::Result<()> {
 		let listener = try!(TcpListener::bind(self.address.as_str()));
-        println!("started on {:?}", listener);
-        for stream in listener.incoming() {
-            let stream = try!(stream);
-            thread::spawn(move || {
+		println!("started on {:?}", listener);
+		for stream in listener.incoming() {
+			let stream = try!(stream);
+			thread::spawn(move || {
 				session::start(stream).unwrap();
-            });
-        }
-        Ok(())
-    }
+			});
+		}
+		Ok(())
+	}
 }
