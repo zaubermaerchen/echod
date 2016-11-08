@@ -1,0 +1,6 @@
+[package]
+name = "echod"
+version = "0.1.0"
+authors = ["Mutsuki Kimuraya <sondessein@gmail.com>"]
+
+[dependencies]
